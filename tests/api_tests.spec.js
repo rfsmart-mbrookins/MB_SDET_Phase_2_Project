@@ -1,4 +1,6 @@
 import { test, expect } from '@playwright/test';
+import axios from 'axios';
+import * as fs from 'node.fs';
 
 // Test data
 const baseURL = "https://jsonplaceholder.typicode.com";
@@ -43,9 +45,8 @@ test.describe.parallel("API Tests", () => {
     // Select Last 5 Posts
     const last5Posts = responseBody.slice(-5);
     console.log('Last 5 posts:', last5Posts);
-    //Select First 3 Posts
-    const first3Posts = responseBody.slice(0, 3);
-    console.log('First 3 posts:', first3Posts);
+    
+
    
   });
 
