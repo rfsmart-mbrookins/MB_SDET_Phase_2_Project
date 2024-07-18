@@ -1,11 +1,10 @@
 import { test, expect } from '@playwright/test';
-import axios from 'axios';
 import * as fs from 'node.fs';
 
 // Test data
 const baseURL = "https://jsonplaceholder.typicode.com";
 
-// Describer Container (Test Suite)
+//  POST Test
 test.describe.parallel("API Tests", () => {
 
    // POST API Request
