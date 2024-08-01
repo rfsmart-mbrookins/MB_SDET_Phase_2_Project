@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { LoginPage } from '../../pages/login2';
+import { LoginPage } from '../../pages/login';
 
 // Go to login page before each test
 test.beforeEach(async ({ page }) => {
@@ -10,6 +10,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test.describe('UI Tests', () => {
+  //Login Validation
   test('Valid Login', async ({ page }) => {
     const loginPage = new LoginPage(page);
     await test.step('Valid Login', async () => {
@@ -19,6 +20,7 @@ test.describe('UI Tests', () => {
     });
   });
 
+  //Negative Test - Invalid Login
   test('Invalid Login', async ({ page }) => {
     const loginPage = new LoginPage(page);
     await test.step('Invalid Login', async () => {
@@ -26,7 +28,7 @@ test.describe('UI Tests', () => {
       await loginPage.submitLoginCredentials();
       await expect(page).toHaveURL('https://www.saucedemo.com/');
     });
-    await test.step('Validate Error Message', async () => {
+    await test.step('Validate Error Message Returned', async () => {
       await loginPage.loginErrorMsg();
     });
   });
