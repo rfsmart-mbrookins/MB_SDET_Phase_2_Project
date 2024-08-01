@@ -7,4 +7,9 @@ test('login', async ({ page }) => {
   await Login.gotoLoginPage();
   await Login.login('standard_user', 'secret_sauce');
   await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html');
-});
+    
+    });
+
+
+
+
