@@ -38,7 +38,6 @@ test('API POST Request', async ({ request }) => {
 
 //Test Case 3 - Use API returned results in a workflow
 
-
 //Test Case 4 - Get Data Manipulation Reverse Data and Save as Artifact
 test('GET API Response', async ({ request }) => {
   const response = await request.get(`${baseURL}/posts`, {
@@ -46,14 +45,14 @@ test('GET API Response', async ({ request }) => {
   });
   expect(response.status()).toBe(200);
   const responseBody = await response.json();
-  //Data Manipulation
-  //Reverse Order
+//Data Manipulation
+//Reverse Order
   const reversedPosts = responseBody.reverse();
   // console.log('Reversed posts:', reversedPosts);
-   // Select Last 5 Posts
+// Select Last 5 Posts
   const last5Posts = responseBody.slice(-5);
   console.log('Last 5 posts:', last5Posts);
-  //Save last 5 posts as an artifact
+//Save last 5 posts as an artifact
   const artifactPath = path.resolve(__dirname, 'last5Posts.json');
   fs.writeFileSync(artifactPath, JSON.stringify(last5Posts, null, 2));
   console.log(`Last 5 posts saved to ${artifactPath}`);
