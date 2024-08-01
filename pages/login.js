@@ -1,4 +1,4 @@
-exports.LoginPage = class LoginPage {
+export class LoginPage {
 
     constructor(page) {
         this.page = page
@@ -8,23 +8,10 @@ exports.LoginPage = class LoginPage {
     }
 
     async gotoLoginPage() {
-        await this.page.goto('https://the-internet.herokuapp.com/login')
+        await this.page.goto('https://www.saucedemo.com/')
     }
 
- 
-//Methods
-
-    // enterUsername(){
-
-    // }
-    // enterPassword(){
-
-    // }
-    // clickOnLogin(){
-
-    // }
- 
-    async login(username, passowrd){
+    async login(username, passowrd) {
         await this.username_textbox.fill(username)
         await this.password_textbox.fill(passowrd)
         await this.login_button.click()
