@@ -2,6 +2,8 @@ import { test, expect } from '@playwright/test';
 import { LoginPage } from '../../pages/login';
 import { InventoryPage } from '../../pages/inventory';
 import { CartPage } from '../../pages/cart';
+import { CheckoutPage } from '../../pages/checkout';
+import { completeCheckoutPage, CompleteCheckoutPage } from '../../pages/completeCheckout';
 
 // Go to login page before each test
 test.beforeEach(async ({ page }) => {
@@ -68,22 +70,21 @@ test.describe('UI Tests', () => {
       const loginPage = new LoginPage(page);
       const inventoryPage = new InventoryPage(page); 
       const cartPage = new CartPage(page); 
+      const checkoutPage = new CheckoutPage(page);
+      const completeCheckoutPage = new CompleteCheckoutPage(page);
+
       //login
       await test.step('Valid Login', async () => {
         await loginPage.inputValidLoginCredentials();
         await loginPage.submitLoginCredentials();
       });
       //add items to cart
-      await test.step('Add to Cart', async () => {
+      await test.step('Add multiple items to Cart', async () => {
         await inventoryPage.addFirstItemToCart();
-      });
-      await test.step('Add to Cart', async () => {
         await inventoryPage.addSecondItemToCart();
-      });
-      await test.step('Add to Cart', async () => {
         await inventoryPage.addThirdItemToCart();
       });
-
+  
     // Go to cart
       await test.step('Go to Cart', async () => {
         await inventoryPage.goToShoppingCart();
@@ -93,5 +94,21 @@ test.describe('UI Tests', () => {
     await test.step('Checkout', async () => {
       await cartPage.goToCheckout(); 
     });
+
+    //Fill form information
+    await test.step('Fill form', async () => {
+      await checkoutPage.fillForm();
     });
+    await test.step('Continue to next page', async () => {
+      await checkoutPage.continueToNextPage(); 
+    });
+
+    //Finish checkout
+    await test.step('Finish checkout', async () => {
+      await completeCheckoutPage.finishCheckout(); 
+    });
+    await expect(page).toHaveURL('https://www.saucedemo.com/checkout-complete.html');
+    await expect(page.locator('.complete-header')).toHaveText('Thank you for your order!');
+
+  });
 });
