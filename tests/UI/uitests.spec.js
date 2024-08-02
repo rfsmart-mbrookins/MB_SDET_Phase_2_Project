@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../../pages/login';
 import { InventoryPage } from '../../pages/inventory';
+import { CartPage } from '../../pages/inventory';
 
 // Go to login page before each test
 test.beforeEach(async ({ page }) => {
@@ -10,7 +11,9 @@ test.beforeEach(async ({ page }) => {
   });
 });
 
+//Test Descript (Script)
 test.describe('UI Tests', () => {
+
   //Login Validation
   test('Valid Login', async ({ page }) => {
     const loginPage = new LoginPage(page);
@@ -59,20 +62,29 @@ test.describe('UI Tests', () => {
       const errorMsg = await loginPage.loginErrorMsg();
     });
   });
-  
+
     //E2E - Workflow
     test('Workflow', async({page}) => {
       const loginPage = new LoginPage(page);
       const inventoryPage = new InventoryPage(page); 
-  
+      //login
       await test.step('Valid Login', async () => {
         await loginPage.inputValidLoginCredentials();
         await loginPage.submitLoginCredentials();
       });
-  
+      //add items to cart
       await test.step('Add to Cart', async () => {
         await inventoryPage.addFirstItemToCart();
       });
+      await test.step('Add to Cart', async () => {
+        await inventoryPage.addSecondItemToCart();
+      });
+      await test.step('Add to Cart', async () => {
+        await inventoryPage.addThirdItemToCart();
+      });
+      
+
+
   
     
     });
