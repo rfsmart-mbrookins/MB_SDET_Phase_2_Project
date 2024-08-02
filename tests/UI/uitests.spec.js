@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../../pages/login';
+import { InventoryPage } from '../../pages/inventory';
 
 // Go to login page before each test
 test.beforeEach(async ({ page }) => {
@@ -20,6 +21,31 @@ test.describe('UI Tests', () => {
     });
   });
 
+  //Positive Test - Successful login button clicks and text changes to button
+  test('Positive Test - Add / Remove Buttons', async({page}) => {
+    const loginPage = new LoginPage(page);
+    const inventoryPage = new InventoryPage(page); 
+
+    await test.step('Valid Login', async () => {
+      await loginPage.inputValidLoginCredentials();
+      await loginPage.submitLoginCredentials();
+    });
+
+    const firstBtn = await inventoryPage.addToCartBtn().first();
+
+    await test.step('Add to Cart', async () => {
+      await expect(firstBtn).toHaveText('Add to cart');
+      await inventoryPage.addFirstItemToCart();
+      await expect(firstBtn).toHaveText('Remove');
+    });
+
+    await test.step('Remove from Cart', async () => {
+      await expect(firstBtn).toHaveText('Remove');
+      await inventoryPage.removeFirstItemFromCart();
+      await expect(firstBtn).toHaveText('Add to cart');
+    });
+  });
+
   //Negative Test - Invalid Login
   test('Invalid Login', async ({ page }) => {
     const loginPage = new LoginPage(page);
@@ -28,8 +54,9 @@ test.describe('UI Tests', () => {
       await loginPage.submitLoginCredentials();
       await expect(page).toHaveURL('https://www.saucedemo.com/');
     });
+
     await test.step('Validate Error Message Returned', async () => {
-      await loginPage.loginErrorMsg();
+      const errorMsg = await loginPage.loginErrorMsg();
     });
   });
 });

@@ -1,17 +1,19 @@
-// pages/login.js
+
 export class LoginPage {
     constructor(page) {
       this.page = page;
     }
   
-    // LOCATORS
+   
     loginBtn = () => this.page.locator("#login-button"); 
     usernameInput = () => this.page.locator("#user-name");
     passwordInput = () => this.page.locator("#password");
     loginErrorMsg = () => this.page.locator("#error");
-    errorBtn = () => this.page.locator('#error-buton')
+    errorBtn = () => this.page.locator('#error-buton');
+   
+
   
-    // ACTIONS
+    
     async goto() {
       await this.page.goto("https://www.saucedemo.com/");
     }
@@ -22,7 +24,7 @@ export class LoginPage {
     }
   
     async inputInvalidLoginCredentials() {
-      await this.usernameInput().fill('standard_user');
+      await this.usernameInput().fill('invalid_user');
       await this.passwordInput().fill('invalidPassword');
     }
   
@@ -33,5 +35,8 @@ export class LoginPage {
     async assertInvalidLoginErrorMsg() {
       await expect(this.loginErrorMsg()).toBeVisible();
     }
+
+
+    
   }
   
