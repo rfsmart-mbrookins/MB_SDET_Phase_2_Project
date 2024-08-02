@@ -30,7 +30,7 @@ test.describe('UI Tests', () => {
   test('Positive Test - Add / Remove Buttons', async({page}) => {
     const loginPage = new LoginPage(page);
     const inventoryPage = new InventoryPage(page); 
-
+    //Login
     await test.step('Valid Login', async () => {
       await loginPage.inputValidLoginCredentials();
       await loginPage.submitLoginCredentials();
@@ -58,6 +58,7 @@ test.describe('UI Tests', () => {
       await loginPage.inputInvalidLoginCredentials();
       await loginPage.submitLoginCredentials();
       await expect(page).toHaveURL('https://www.saucedemo.com/');
+    
     });
 
     await test.step('Validate Error Message Returned', async () => {
