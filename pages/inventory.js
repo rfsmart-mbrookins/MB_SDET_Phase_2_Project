@@ -6,35 +6,42 @@ export class InventoryPage {
   
     addToCartBtn = () => this.page.locator('.btn_inventory');
     removeFromCartBtn = () => this.page.locator('.btn_inventory');
+    goToShoppingCartBtn = () => this.page.locator('.shopping_cart_badge');
   
   
     async addFirstItemToCart() {
-      const firstAddToCartButton = await this.addToCartBtn().first();
-      await firstAddToCartButton.click();
+      const addToCartBtn = await this.addToCartBtn().first();
+      await addToCartBtn.click();
     }
     async removeFirstItemFromCart() {
-        const firstRemoveFromCartButton = await this.removeFromCartBtn().first();
-        await firstRemoveFromCartButton.click();
+        const removeFromCartBtn = await this.removeFromCartBtn().first();
+        await removeFromCartBtn.click();
     }
 
     ////experimental
     async addSecondItemToCart() {
-      const secondAddToCartButton = await this.addToCartBtn().nth(1);
-      await secondAddToCartButton.click();
+      const addToCartBtn = await this.addToCartBtn().nth(1);
+      await addToCartBtn.click();
     }
     
     async removeSecondItemFromCart() {
-      const secondRemoveFromCartButton = await this.removeFromCartBtn().nth(1);
-      await secondRemoveFromCartButton.click();
+      const removeFromCartBtn = await this.removeFromCartBtn().nth(1);
+      await removeFromCartBtn.click();
     }
     async addThirdItemToCart() {
-      const thirdAddToCartButton = await this.addToCartBtn().nth(2);
-      await thirdAddToCartButton.click();
+      const addToCartBtn = await this.addToCartBtn().nth(2);
+      await addToCartBtn.click();
     }
     
     async removeThirdItemFromCart() {
-      const thirdRemoveFromCartButton = await this.removeFromCartBtn().nth(2);
-      await thirdRemoveFromCartButton.click();
+      const removeFromCartBtn = await this.removeFromCartBtn().nth(2);
+      await removeFromCartBtn.click();
     }
+
+    async goToShoppingCart() {
+      const goToShoppingCartBtn = await this.goToShoppingCartBtn()
+      await goToShoppingCartBtn.click();
+    }
+
   }
   

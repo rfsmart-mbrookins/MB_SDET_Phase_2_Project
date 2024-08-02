@@ -3,4 +3,10 @@ export class CartPage {
       this.page = page;
     }
 
+    checkoutBtn = () => this.page.locator('#checkout');
+
+    async goToCheckout() {
+        const checkoutBtn = await this.checkoutBtn();
+        await checkoutBtn.click();
+      }
 }

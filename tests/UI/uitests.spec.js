@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../../pages/login';
 import { InventoryPage } from '../../pages/inventory';
-import { CartPage } from '../../pages/inventory';
+import { CartPage } from '../../pages/cart';
 
 // Go to login page before each test
 test.beforeEach(async ({ page }) => {
@@ -67,6 +67,7 @@ test.describe('UI Tests', () => {
     test('Workflow', async({page}) => {
       const loginPage = new LoginPage(page);
       const inventoryPage = new InventoryPage(page); 
+      const cartPage = new CartPage(page); 
       //login
       await test.step('Valid Login', async () => {
         await loginPage.inputValidLoginCredentials();
@@ -84,8 +85,13 @@ test.describe('UI Tests', () => {
       });
 
     // Go to cart
-    
-  
-    
+      await test.step('Go to Cart', async () => {
+        await inventoryPage.goToShoppingCart();
+       });
+
+    //Checkout
+    await test.step('Checkout', async () => {
+      await cartPage.goToCheckout(); 
+    });
     });
 });
