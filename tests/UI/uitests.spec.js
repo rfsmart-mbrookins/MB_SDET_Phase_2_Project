@@ -82,9 +82,9 @@ test.describe('UI Tests', () => {
       await test.step('Add to Cart', async () => {
         await inventoryPage.addThirdItemToCart();
       });
-      
 
-
+    // Go to cart
+    
   
     
     });
