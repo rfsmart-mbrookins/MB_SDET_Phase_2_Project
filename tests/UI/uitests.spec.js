@@ -59,4 +59,21 @@ test.describe('UI Tests', () => {
       const errorMsg = await loginPage.loginErrorMsg();
     });
   });
+  
+    //E2E - Workflow
+    test('Workflow', async({page}) => {
+      const loginPage = new LoginPage(page);
+      const inventoryPage = new InventoryPage(page); 
+  
+      await test.step('Valid Login', async () => {
+        await loginPage.inputValidLoginCredentials();
+        await loginPage.submitLoginCredentials();
+      });
+  
+      await test.step('Add to Cart', async () => {
+        await inventoryPage.addFirstItemToCart();
+      });
+  
+    
+    });
 });
