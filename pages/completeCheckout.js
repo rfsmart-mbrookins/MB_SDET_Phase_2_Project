@@ -6,7 +6,7 @@ export class CompleteCheckoutPage {
     finishBtn = () => this.page.locator('#finish');
 
    
-
+//Finish button
     async finishCheckout() {
         const finishBtn = await this.finishBtn();
         await finishBtn.click();
