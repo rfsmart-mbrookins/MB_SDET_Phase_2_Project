@@ -22,8 +22,8 @@ test('API POST Request', async ({ request }) => {
     data: {
       userId: 11,
       id: 101,
-      title: "FLORIDA MAN: The hero America never knew they needed",
-      body: "Only in Florida could such a hero like this emerge and be praised by the nation."
+      title: "JavaScript for Dummies",
+      body: "Learn JavaScript the easy way with JavaScript for Dummies..."
     }
   });
   expect(response.status()).toBe(201); // 201 status code for resource creation
@@ -31,8 +31,8 @@ test('API POST Request', async ({ request }) => {
   // Assertions - Verifying that the response contains the properties sent in the request
   expect(jsonResponse).toHaveProperty('userId', 11);
   expect(jsonResponse).toHaveProperty('id', 101);
-  expect(jsonResponse).toHaveProperty('title', "FLORIDA MAN: The hero America never knew they needed");
-  expect(jsonResponse).toHaveProperty('body', "Only in Florida could such a hero like this emerge and be praised by the nation.");
+  expect(jsonResponse).toHaveProperty('title', "JavaScript for Dummies");
+  expect(jsonResponse).toHaveProperty('body', "Learn JavaScript the easy way with JavaScript for Dummies...");
   console.log(jsonResponse);
   });
 
