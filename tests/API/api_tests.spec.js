@@ -36,10 +36,9 @@ test('API POST Request', async ({ request }) => {
   console.log(jsonResponse);
   });
 
-//Test Case 3 - Use API returned results in a workflow
 
-//Test Case 4 - Get Data Manipulation Reverse Data and Save as Artifact
-test('GET API Response', async ({ request }) => {
+//Test Cases 3 & 4 - Workflow (Get Data Manipulation Reverse Data and Save as Artifact)
+test('Workflow', async ({ request }) => {
   const response = await request.get(`${baseURL}/posts`, {
     ignoreHTTPSErrors: true,
   });
