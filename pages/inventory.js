@@ -7,6 +7,7 @@ export class InventoryPage {
     addToCartBtn = () => this.page.locator('.btn_inventory');
     removeFromCartBtn = () => this.page.locator('.btn_inventory');
     goToShoppingCartBtn = () => this.page.locator('.shopping_cart_link');
+    itemSortOpt = () => this.page.locator('.product_sort_container'); 
   
 
     //Add to cart buttons
@@ -26,6 +27,18 @@ export class InventoryPage {
       const goToShoppingCartBtn = await this.goToShoppingCartBtn()
       await goToShoppingCartBtn.click();
     }
+    
+    //Sorting items
+    async itemSort(value) {
+      const itemSortOpt = await this.itemSortOpt();
+      await itemSortOpt.selectOption(value);
+    }
+    //Get sort option
+    async getSortOption() {
+      const itemSortOpt = await this.itemSortOpt();
+      return await itemSortOpt.inputValue();
+    }
+
 
   }
   
