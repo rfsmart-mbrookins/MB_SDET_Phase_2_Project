@@ -6,38 +6,22 @@ export class InventoryPage {
   
     addToCartBtn = () => this.page.locator('.btn_inventory');
     removeFromCartBtn = () => this.page.locator('.btn_inventory');
-    goToShoppingCartBtn = () => this.page.locator('.shopping_cart_badge');
+    goToShoppingCartBtn = () => this.page.locator('.shopping_cart_link');
   
-  
-    async addFirstItemToCart() {
-      const addToCartBtn = await this.addToCartBtn().first();
-      await addToCartBtn.click();
-    }
-    async removeFirstItemFromCart() {
-        const removeFromCartBtn = await this.removeFromCartBtn().first();
-        await removeFromCartBtn.click();
-    }
 
-    ////experimental
-    async addSecondItemToCart() {
-      const addToCartBtn = await this.addToCartBtn().nth(1);
+    //Add to cart button
+    async addItemToCart(index = 0) {
+      const addToCartBtn = await this.addToCartBtn().nth(index);
       await addToCartBtn.click();
     }
-    
-    async removeSecondItemFromCart() {
-      const removeFromCartBtn = await this.removeFromCartBtn().nth(1);
-      await removeFromCartBtn.click();
-    }
-    async addThirdItemToCart() {
-      const addToCartBtn = await this.addToCartBtn().nth(2);
-      await addToCartBtn.click();
-    }
-    
-    async removeThirdItemFromCart() {
-      const removeFromCartBtn = await this.removeFromCartBtn().nth(2);
+  
+    //Remove from cart button
+    async removeItemFromCart(index = 0) {
+      const removeFromCartBtn = await this.removeFromCartBtn().nth(index);
       await removeFromCartBtn.click();
     }
 
+    //Shopping cart button
     async goToShoppingCart() {
       const goToShoppingCartBtn = await this.goToShoppingCartBtn()
       await goToShoppingCartBtn.click();

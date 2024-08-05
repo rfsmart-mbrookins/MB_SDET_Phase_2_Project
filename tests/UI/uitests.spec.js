@@ -3,7 +3,7 @@ import { LoginPage } from '../../pages/login';
 import { InventoryPage } from '../../pages/inventory';
 import { CartPage } from '../../pages/cart';
 import { CheckoutPage } from '../../pages/checkout';
-import { completeCheckoutPage, CompleteCheckoutPage } from '../../pages/completeCheckout';
+import { CompleteCheckoutPage } from '../../pages/completeCheckout';
 
 // Go to login page before each test
 test.beforeEach(async ({ page }) => {
@@ -13,7 +13,7 @@ test.beforeEach(async ({ page }) => {
   });
 });
 
-//Test Descript (Script)
+//Test Describe (Script)
 test.describe('UI Tests', () => {
 
   //Login Validation
@@ -40,13 +40,13 @@ test.describe('UI Tests', () => {
 
     await test.step('Add to Cart', async () => {
       await expect(firstBtn).toHaveText('Add to cart');
-      await inventoryPage.addFirstItemToCart();
+      await inventoryPage.addItemToCart(0);
       await expect(firstBtn).toHaveText('Remove');
     });
 
     await test.step('Remove from Cart', async () => {
       await expect(firstBtn).toHaveText('Remove');
-      await inventoryPage.removeFirstItemFromCart();
+      await inventoryPage.removeItemFromCart(0)
       await expect(firstBtn).toHaveText('Add to cart');
     });
   });
@@ -74,16 +74,19 @@ test.describe('UI Tests', () => {
       const checkoutPage = new CheckoutPage(page);
       const completeCheckoutPage = new CompleteCheckoutPage(page);
 
-      //login
+      //Login
       await test.step('Valid Login', async () => {
         await loginPage.inputValidLoginCredentials();
         await loginPage.submitLoginCredentials();
       });
-      //add items to cart
+      //Add items to cart
       await test.step('Add multiple items to Cart', async () => {
-        await inventoryPage.addFirstItemToCart();
-        await inventoryPage.addSecondItemToCart();
-        await inventoryPage.addThirdItemToCart();
+        await inventoryPage.addItemToCart(0);
+        await inventoryPage.addItemToCart(1);
+        await inventoryPage.addItemToCart(2);
+        await inventoryPage.addItemToCart(3);
+        await inventoryPage.addItemToCart(4);
+        await inventoryPage.addItemToCart(5);
       });
   
     // Go to cart
