@@ -9,13 +9,13 @@ export class InventoryPage {
     goToShoppingCartBtn = () => this.page.locator('.shopping_cart_link');
   
 
-    //Add to cart button
+    //Add to cart buttons
     async addItemToCart(index = 0) {
       const addToCartBtn = await this.addToCartBtn().nth(index);
       await addToCartBtn.click();
     }
   
-    //Remove from cart button
+    //Remove from cart buttons
     async removeItemFromCart(index = 0) {
       const removeFromCartBtn = await this.removeFromCartBtn().nth(index);
       await removeFromCartBtn.click();

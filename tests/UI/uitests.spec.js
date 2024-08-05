@@ -93,6 +93,7 @@ test.describe('UI Tests', () => {
       await test.step('Go to Cart', async () => {
         await inventoryPage.goToShoppingCart();
        });
+    
 
     //Checkout
     await test.step('Checkout', async () => {
@@ -113,6 +114,13 @@ test.describe('UI Tests', () => {
     });
     await expect(page).toHaveURL('https://www.saucedemo.com/checkout-complete.html');
     await expect(page.locator('.complete-header')).toHaveText('Thank you for your order!');
+
+
+  // 3 additional tests 
+  //Sort items
+
+
+
 
   });
 });
