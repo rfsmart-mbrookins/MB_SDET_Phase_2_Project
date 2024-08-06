@@ -30,12 +30,12 @@ test('API POST Request', async ({ request }) => {
       body: "Learn JavaScript the easy way with JavaScript for Dummies..."
     }
   });
-    expect(response.status()).toBe(201); 
+   expect(response.status()).toBe(201); 
   const jsonResponse = await response.json();
-    expect(jsonResponse).toHaveProperty('userId', 11);
-    expect(jsonResponse).toHaveProperty('id', 101);
-    expect(jsonResponse).toHaveProperty('title', "JavaScript for Dummies");
-    expect(jsonResponse).toHaveProperty('body', "Learn JavaScript the easy way with JavaScript for Dummies...");
+  expect(jsonResponse).toHaveProperty('userId', 11);
+  expect(jsonResponse).toHaveProperty('id', 101);
+  expect(jsonResponse).toHaveProperty('title', "JavaScript for Dummies");
+  expect(jsonResponse).toHaveProperty('body', "Learn JavaScript the easy way with JavaScript for Dummies...");
   console.log(jsonResponse);
   });
 
@@ -46,7 +46,7 @@ test('Workflow', async ({ request }) => {
   const response = await request.get(`${baseURL}/posts`, {
     ignoreHTTPSErrors: true,
   });
-    expect(response.status()).toBe(200);
+  expect(response.status()).toBe(200);
   const responseBody = await response.json();
   responseBody.forEach(post => {
     expect(post).toHaveProperty('userId');
