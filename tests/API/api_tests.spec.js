@@ -2,20 +2,24 @@ import { test, expect } from "@playwright/test";
 const fs = require('fs');
 const path = require('path');
 
-//API URL
+/*Base URL*/
 const baseURL = "https://jsonplaceholder.typicode.com";
 
-//Test Case 1 - GET API Request - reach out to base URL and return success status code 200
+/* Test Describe (Script) */
+test.describe('API Tests', () => {
+
+/*Test Case 1*/
+// GET Request 
    test('API GET Request', async ({ request }) => {
     const response = await request.get(`${baseURL}/posts`, {
       ignoreHTTPSErrors: true,
     });
-//Assertion - Success code
     expect(response.status()).toBe(200);
     console.log(response.status());
    });
 
-//Test Case 2 - POST using API
+/*Test Case 2*/
+//POST Request
 test('API POST Request', async ({ request }) => {
   const response = await request.post(`${baseURL}/posts`, {
     ignoreHTTPSErrors: true,
@@ -26,9 +30,8 @@ test('API POST Request', async ({ request }) => {
       body: "Learn JavaScript the easy way with JavaScript for Dummies..."
     }
   });
-  expect(response.status()).toBe(201); // 201 status code for resource creation
+  expect(response.status()).toBe(201); 
   const jsonResponse = await response.json();
-  // Assertions - Verifying that the response contains the properties sent in the request
   expect(jsonResponse).toHaveProperty('userId', 11);
   expect(jsonResponse).toHaveProperty('id', 101);
   expect(jsonResponse).toHaveProperty('title', "JavaScript for Dummies");
@@ -37,22 +40,47 @@ test('API POST Request', async ({ request }) => {
   });
 
 
-//Test Cases 3 & 4 - Workflow (Get Data Manipulation Reverse Data and Save as Artifact)
+/*Test Cases 3 and 4*/
+//Workflow (GET Data, Reverse Order, Select Last 5 Posts, and Save Last 5 as Artifact)
 test('Workflow', async ({ request }) => {
   const response = await request.get(`${baseURL}/posts`, {
     ignoreHTTPSErrors: true,
   });
   expect(response.status()).toBe(200);
   const responseBody = await response.json();
-//Data Manipulation
-//Reverse Order
+  responseBody.forEach(post => {
+    expect(post).toHaveProperty('userId');
+    expect(post).toHaveProperty('id');
+    expect(post).toHaveProperty('title');
+    expect(post).toHaveProperty('body');
+  });
+//Data Manipulation - Reverse Order
   const reversedPosts = responseBody.reverse();
-  // console.log('Reversed posts:', reversedPosts);
-// Select Last 5 Posts
+  reversedPosts.forEach(post => {
+    expect(post).toHaveProperty('userId');
+    expect(post).toHaveProperty('id');
+    expect(post).toHaveProperty('title');
+    expect(post).toHaveProperty('body');
+  });
+// Select Last 5 Posts from reversed posts
   const last5Posts = responseBody.slice(-5);
+  last5Posts.forEach(post => {
+    expect(post).toHaveProperty('userId');
+    expect(post).toHaveProperty('id');
+    expect(post).toHaveProperty('title');
+    expect(post).toHaveProperty('body');
+  });
   console.log('Last 5 posts:', last5Posts);
 //Save last 5 posts as an artifact
   const artifactPath = path.resolve(__dirname, 'last5Posts.json');
   fs.writeFileSync(artifactPath, JSON.stringify(last5Posts, null, 2));
+  const artifactPosts = JSON.parse(fs.readFileSync(artifactPath, 'utf-8'));
+  artifactPosts.forEach(post => {
+    expect(post).toHaveProperty('userId');
+    expect(post).toHaveProperty('id');
+    expect(post).toHaveProperty('title');
+    expect(post).toHaveProperty('body');
+  });
   console.log(`Last 5 posts saved to ${artifactPath}`);
+  });
 });
