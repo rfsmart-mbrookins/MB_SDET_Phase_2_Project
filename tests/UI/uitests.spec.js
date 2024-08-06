@@ -4,6 +4,7 @@ import { InventoryPage } from '../../pages/inventory';
 import { CartPage } from '../../pages/cart';
 import { CheckoutPage } from '../../pages/checkout';
 import { CompleteCheckoutPage } from '../../pages/completeCheckout';
+import { ItemDetailsPage } from '../../pages/itemDetails';
 
 /* Go to login page before each test */
 test.beforeEach(async ({ page }) => {
@@ -36,15 +37,12 @@ test.describe('UI Tests', () => {
       await loginPage.inputValidLoginCredentials();
       await loginPage.submitLoginCredentials();
     });
-
     const firstBtn = await inventoryPage.addToCartBtn().first();
-
     await test.step('Add to Cart', async () => {
       await expect(firstBtn).toHaveText('Add to cart');
       await inventoryPage.addItemToCart(0);
       await expect(firstBtn).toHaveText('Remove');
     });
-
     await test.step('Remove from Cart', async () => {
       await expect(firstBtn).toHaveText('Remove');
       await inventoryPage.removeItemFromCart(0)
@@ -112,7 +110,7 @@ test.describe('UI Tests', () => {
 
   /* 3 additional tests */
   /* Additional Test 1 */
-  // Item Sorting Dropdown
+  // Item Sorting Options
   test('Item Sorting', async({page}) => {
     const loginPage = new LoginPage(page);
     const inventoryPage = new InventoryPage(page); 
@@ -140,10 +138,52 @@ test.describe('UI Tests', () => {
     const selectedOption = await inventoryPage.getSortOption();
     await expect(selectedOption).toBe('za');
   });
- 
-  
-
-
-
   });
+
+  /*Additional Test 2*/
+  //Validate Item Details and go back to products
+  test('Item Details', async({page}) => {
+    const loginPage = new LoginPage(page);
+    const inventoryPage = new InventoryPage(page);
+    const itemDetailsPage = new ItemDetailsPage(page);
+
+    await test.step('Valid Login', async () => {
+      await loginPage.inputValidLoginCredentials();
+      await loginPage.submitLoginCredentials();
+    });
+  await test.step('View Item Details', async () => {
+    await inventoryPage.getItemDetails();
+  });
+  await expect(page).toHaveURL('https://www.saucedemo.com/inventory-item.html?id=4');
+  await expect(page.locator('.inventory_details_name')).toHaveText('Sauce Labs Backpack');
+  await expect(page.locator('.inventory_details_desc')).toHaveText('carry.allTheThings() with the sleek, streamlined Sly Pack that melds uncompromising style with unequaled laptop and tablet protection.');
+  await expect(page.locator('.inventory_details_price')).toHaveText('$29.99');
+  });
+  
+  /*Additional Test 3*/
+  //Add item to Cart and go to checkout
+  test('Add to Cart', async({page}) => {
+    const loginPage = new LoginPage(page);
+    const inventoryPage = new InventoryPage(page);
+    const itemDetailsPage = new ItemDetailsPage(page);
+    const cartPage = new CartPage(page); 
+
+    await test.step('Valid Login', async () => {
+      await loginPage.inputValidLoginCredentials();
+      await loginPage.submitLoginCredentials();
+    });
+  await test.step('View Item Details', async () => {
+    await inventoryPage.getItemDetails();
+    await expect(page).toHaveURL('https://www.saucedemo.com/inventory-item.html?id=4');
+  });
+  await test.step('Add it to Cart', async () => {
+    await itemDetailsPage.addItemToCart();
+  });
+  await test.step('Go to Cart', async () => {
+    await itemDetailsPage.goToCart();
+    await expect(page).toHaveURL('https://www.saucedemo.com/cart.html');
+   });
+
+
+});
 });

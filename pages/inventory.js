@@ -8,7 +8,7 @@ export class InventoryPage {
     removeFromCartBtn = () => this.page.locator('.btn_inventory');
     goToShoppingCartBtn = () => this.page.locator('.shopping_cart_link');
     itemSortOpt = () => this.page.locator('.product_sort_container'); 
-  
+    itemDetails = () => this.page.locator('.inventory_item_name');
 
     //Add to cart buttons
     async addItemToCart(index = 0) {
@@ -37,6 +37,12 @@ export class InventoryPage {
     async getSortOption() {
       const itemSortOpt = await this.itemSortOpt();
       return await itemSortOpt.inputValue();
+    }
+
+    //Item details
+    async getItemDetails(index = 0) {
+      const itemDetails = await this.itemDetails().nth(index);
+      await itemDetails.click();
     }
 
 
