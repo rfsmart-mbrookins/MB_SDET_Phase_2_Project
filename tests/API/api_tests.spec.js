@@ -75,12 +75,13 @@ test('Workflow', async ({ request }) => {
   const artifactPath = path.resolve(__dirname, 'last5Posts.json');
   fs.writeFileSync(artifactPath, JSON.stringify(last5Posts, null, 2));
   const artifactPosts = JSON.parse(fs.readFileSync(artifactPath, 'utf-8'));
+  console.log(`Last 5 posts saved to ${artifactPath}`);
   artifactPosts.forEach(post => {
     expect(post).toHaveProperty('userId');
     expect(post).toHaveProperty('id');
     expect(post).toHaveProperty('title');
     expect(post).toHaveProperty('body');
-  });
-  console.log(`Last 5 posts saved to ${artifactPath}`);
+   });
+ 
   });
 });
