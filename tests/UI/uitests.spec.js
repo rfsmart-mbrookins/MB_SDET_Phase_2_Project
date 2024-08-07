@@ -141,7 +141,7 @@ test.describe('UI Tests', () => {
   });
 
   /*Additional Test 2*/
-  //Validate Item Details and go back to products
+  //Validate Item Details 
   test('Item Details', async({page}) => {
     const loginPage = new LoginPage(page);
     const inventoryPage = new InventoryPage(page);
@@ -154,14 +154,15 @@ test.describe('UI Tests', () => {
   await test.step('View Item Details', async () => {
     await inventoryPage.getItemDetails();
   });
-  await expect(page).toHaveURL('https://www.saucedemo.com/inventory-item.html?id=4');
-  await expect(page.locator('.inventory_details_name')).toHaveText('Sauce Labs Backpack');
-  await expect(page.locator('.inventory_details_desc')).toHaveText('carry.allTheThings() with the sleek, streamlined Sly Pack that melds uncompromising style with unequaled laptop and tablet protection.');
-  await expect(page.locator('.inventory_details_price')).toHaveText('$29.99');
+   await expect(page).toHaveURL('https://www.saucedemo.com/inventory-item.html?id=4');
+   await expect(page.locator('.inventory_details_name')).toHaveText('Sauce Labs Backpack');
+   await expect(page.locator('.inventory_details_desc')).toHaveText('carry.allTheThings() with the sleek, streamlined Sly Pack that melds uncompromising style with unequaled laptop and tablet protection.');
+   await expect(page.locator('.inventory_details_price')).toHaveText('$29.99');
   });
+ 
   
   /*Additional Test 3*/
-  //Add item to Cart and go to checkout
+  //Add item to Cart 
   test('Add to Cart', async({page}) => {
     const loginPage = new LoginPage(page);
     const inventoryPage = new InventoryPage(page);
@@ -176,13 +177,17 @@ test.describe('UI Tests', () => {
     await inventoryPage.getItemDetails();
     await expect(page).toHaveURL('https://www.saucedemo.com/inventory-item.html?id=4');
   });
-  await test.step('Add it to Cart', async () => {
+  await test.step('Add item to Cart', async () => {
     await itemDetailsPage.addItemToCart();
   });
   await test.step('Go to Cart', async () => {
     await itemDetailsPage.goToCart();
     await expect(page).toHaveURL('https://www.saucedemo.com/cart.html');
+    await expect(page.locator('.inventory_item_name')).toHaveText('Sauce Labs Backpack');
+    await expect(page.locator('.inventory_item_desc')).toHaveText('carry.allTheThings() with the sleek, streamlined Sly Pack that melds uncompromising style with unequaled laptop and tablet protection.');
+    await expect(page.locator('.inventory_item_price')).toHaveText('$29.99');
    });
+
 
 
 });
