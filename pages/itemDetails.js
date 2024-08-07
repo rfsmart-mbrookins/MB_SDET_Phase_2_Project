@@ -3,11 +3,12 @@ export class ItemDetailsPage {
     this.page = page;
   }
 
-  addToCartBtn = () => this.page.locator('.btn_primary');
+  addToCartBtn = () => this.page.locator(".btn_primary");
   removeFromCartBtn = () => this.page.locator('button[data-test="remove"]');
-  itemDetails = () => this.page.locator('.inventory_item_name');
-  backToProductsBtn = () => this.page.locator('button[data-test="back-to-products"]');
-  goToCartBtn = () => this.page.locator('.shopping_cart_link');
+  itemDetails = () => this.page.locator(".inventory_item_name");
+  backToProductsBtn = () =>
+    this.page.locator('button[data-test="back-to-products"]');
+  goToCartBtn = () => this.page.locator(".shopping_cart_link");
 
   // Add to cart button
   async addItemToCart() {
@@ -28,7 +29,7 @@ export class ItemDetailsPage {
   }
   //Shopping cart button
   async goToCart() {
-    const goToCartBtn = await this.goToCartBtn()
+    const goToCartBtn = await this.goToCartBtn();
     await goToCartBtn.click();
   }
 }
