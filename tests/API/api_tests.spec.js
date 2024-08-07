@@ -72,7 +72,7 @@ test.describe("API Tests", () => {
       expect(post).toHaveProperty("body");
     });
     console.log("Last 5 posts:", last5Posts);
-    //Save last 5 posts as an artifact
+    //Save last 5 posts as an artifact to "Artifacts" directory
     const artifactDir = path.resolve(__dirname, "Artifacts");
     if (!fs.existsSync(artifactDir)) {
       fs.mkdirSync(artifactDir);
