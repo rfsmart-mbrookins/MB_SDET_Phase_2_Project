@@ -42,7 +42,7 @@ test.describe("API Tests", () => {
   });
 
   /*Test Cases 3 and 4*/
-  //Workflow (GET Data, Reverse Order, Select Last 5 Posts, and Save Last 5 as Artifact)
+  //Workflow (GET Data, Reverse Order, Select Last 5 Posts, Save Last 5 as Artifact)
   test("Workflow", async ({ request }) => {
     const response = await request.get(`${baseURL}/posts`, {
       ignoreHTTPSErrors: true,
@@ -73,7 +73,11 @@ test.describe("API Tests", () => {
     });
     console.log("Last 5 posts:", last5Posts);
     //Save last 5 posts as an artifact
-    const artifactPath = path.resolve(__dirname, "last5Posts.json");
+    const artifactDir = path.resolve(__dirname, "Artifacts");
+    if (!fs.existsSync(artifactDir)) {
+      fs.mkdirSync(artifactDir);
+    }
+    const artifactPath = path.resolve(artifactDir, "last5Posts.json");
     fs.writeFileSync(artifactPath, JSON.stringify(last5Posts, null, 2));
     const artifactPosts = JSON.parse(fs.readFileSync(artifactPath, "utf-8"));
     console.log(`Last 5 posts saved to ${artifactPath}`);
