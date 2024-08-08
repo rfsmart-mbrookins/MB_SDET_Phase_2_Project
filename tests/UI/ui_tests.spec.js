@@ -11,7 +11,7 @@ test.beforeEach(async ({ page }) => {
   const loginPage = new LoginPage(page);
   await test.step("Go to Login Page", async () => {
     await loginPage.goto();
-    await expect(page).toHaveURL('https://www.saucedemo.com/');
+    await expect(page).toHaveURL("https://www.saucedemo.com/");
   });
 });
 
@@ -61,7 +61,9 @@ test.describe("UI Tests", () => {
     });
     await test.step("Validate Error Message Returned", async () => {
       const errorMsg = await loginPage.loginErrorMsg();
-      await expect(errorMsg).toHaveText("Epic sadface: Username and password do not match any user in this service");
+      await expect(errorMsg).toHaveText(
+        "Epic sadface: Username and password do not match any user in this service"
+      );
     });
   });
 

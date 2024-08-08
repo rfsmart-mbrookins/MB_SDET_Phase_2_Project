@@ -37,5 +37,4 @@ export class LoginPage {
   async assertInvalidLoginErrorMsg() {
     await expect(this.loginErrorMsg()).toBeVisible();
   }
-
 }
