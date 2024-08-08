@@ -1,3 +1,6 @@
+import { expect } from "@playwright/test";
+import exp from "constants";
+
 export class LoginPage {
   constructor(page) {
     this.page = page;
@@ -6,8 +9,8 @@ export class LoginPage {
   loginBtn = () => this.page.locator("#login-button");
   usernameInput = () => this.page.locator("#user-name");
   passwordInput = () => this.page.locator("#password");
-  loginErrorMsg = () => this.page.locator("#error");
-  errorBtn = () => this.page.locator("#error-buton");
+  loginErrorMsg = () => this.page.locator(".error").nth(2);
+  errorBtn = () => this.page.locator("#error-button");
 
   //Login
   async goto() {
@@ -35,4 +38,5 @@ export class LoginPage {
   async assertInvalidLoginErrorMsg() {
     await expect(this.loginErrorMsg()).toBeVisible();
   }
+
 }
