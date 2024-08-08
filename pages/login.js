@@ -10,7 +10,6 @@ export class LoginPage {
   usernameInput = () => this.page.locator("#user-name");
   passwordInput = () => this.page.locator("#password");
   loginErrorMsg = () => this.page.locator(".error").nth(2);
-  errorBtn = () => this.page.locator("#error-button");
 
   //Login
   async goto() {
