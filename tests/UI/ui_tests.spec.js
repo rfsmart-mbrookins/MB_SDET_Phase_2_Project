@@ -6,24 +6,27 @@ import { CheckoutPage } from "../../pages/checkout";
 import { CompleteCheckoutPage } from "../../pages/completeCheckout";
 import { ItemDetailsPage } from "../../pages/itemDetails";
 
-/* Go to login page before each test */
+const baseURL = "https://www.saucedemo.com/";
+
+/* Go to login page before each hook */
 test.beforeEach(async ({ page }) => {
   const loginPage = new LoginPage(page);
   await test.step("Go to Login Page", async () => {
     await loginPage.goto();
-    await expect(page).toHaveURL("https://www.saucedemo.com/");
+    await expect(page).toHaveURL(baseURL);
   });
 });
 
-/* Test Describe (Script) */
+/* Test Script */
 test.describe("UI Tests", () => {
+  
   /* Login Validation test */
   test("Valid Login", async ({ page }) => {
     const loginPage = new LoginPage(page);
     await test.step("Valid Login", async () => {
       await loginPage.inputValidLoginCredentials();
       await loginPage.submitLoginCredentials();
-      await expect(page).toHaveURL("https://www.saucedemo.com/inventory.html");
+      await expect(page).toHaveURL(`${baseURL}inventory.html`);
     });
   });
 
@@ -57,7 +60,7 @@ test.describe("UI Tests", () => {
     await test.step("Invalid Login", async () => {
       await loginPage.inputInvalidLoginCredentials();
       await loginPage.submitLoginCredentials();
-      await expect(page).toHaveURL("https://www.saucedemo.com/");
+      await expect(page).toHaveURL(baseURL);
     });
     await test.step("Validate Error Message Returned", async () => {
       const errorMsg = await loginPage.loginErrorMsg();
@@ -67,7 +70,7 @@ test.describe("UI Tests", () => {
     });
   });
 
-  /* E2E - Workflow */
+  /* E2E - Workflow - Successful Purchase Workflow */
   test("Workflow", async ({ page }) => {
     const loginPage = new LoginPage(page);
     const inventoryPage = new InventoryPage(page);
@@ -78,6 +81,7 @@ test.describe("UI Tests", () => {
     await test.step("Valid Login", async () => {
       await loginPage.inputValidLoginCredentials();
       await loginPage.submitLoginCredentials();
+      await expect(page).toHaveURL(`${baseURL}inventory.html`);
     });
     //Add items to cart
     await test.step("Add multiple items to Cart", async () => {
@@ -91,10 +95,12 @@ test.describe("UI Tests", () => {
     // Go to cart
     await test.step("Go to Cart", async () => {
       await inventoryPage.goToShoppingCart();
+      await expect(page).toHaveURL(`${baseURL}cart.html`);
     });
     //Checkout
     await test.step("Checkout", async () => {
       await cartPage.goToCheckout();
+      await expect(page).toHaveURL(`${baseURL}checkout-step-one.html`);
     });
     //Fill form information
     await test.step("Fill form", async () => {
@@ -102,17 +108,16 @@ test.describe("UI Tests", () => {
     });
     await test.step("Continue to next page", async () => {
       await checkoutPage.continueToNextPage();
+      await expect(page).toHaveURL(`${baseURL}checkout-step-two.html`);
     });
     //Finish checkout
     await test.step("Finish checkout", async () => {
       await completeCheckoutPage.finishCheckout();
+      await expect(page).toHaveURL(`${baseURL}checkout-complete.html`);
+      await expect(page.locator(".complete-header")).toHaveText(
+        "Thank you for your order!"
+      );
     });
-    await expect(page).toHaveURL(
-      "https://www.saucedemo.com/checkout-complete.html"
-    );
-    await expect(page.locator(".complete-header")).toHaveText(
-      "Thank you for your order!"
-    );
   });
 
   /* 3 additional tests */
@@ -124,6 +129,7 @@ test.describe("UI Tests", () => {
     await test.step("Valid Login", async () => {
       await loginPage.inputValidLoginCredentials();
       await loginPage.submitLoginCredentials();
+      await expect(page).toHaveURL(`${baseURL}inventory.html`);
     });
     await test.step("Sort Low to High", async () => {
       await inventoryPage.itemSort("lohi");
@@ -161,9 +167,7 @@ test.describe("UI Tests", () => {
     await test.step("View Item Details", async () => {
       await inventoryPage.getItemDetails();
     });
-    await expect(page).toHaveURL(
-      "https://www.saucedemo.com/inventory-item.html?id=4"
-    );
+    await expect(page).toHaveURL(`${baseURL}inventory-item.html?id=4`);
     await expect(page.locator(".inventory_details_name")).toHaveText(
       "Sauce Labs Backpack"
     );
@@ -187,16 +191,14 @@ test.describe("UI Tests", () => {
     });
     await test.step("View Item Details", async () => {
       await inventoryPage.getItemDetails();
-      await expect(page).toHaveURL(
-        "https://www.saucedemo.com/inventory-item.html?id=4"
-      );
+      await expect(page).toHaveURL(`${baseURL}inventory-item.html?id=4`);
     });
     await test.step("Add item to Cart", async () => {
       await itemDetailsPage.addItemToCart();
     });
     await test.step("Go to Cart", async () => {
       await itemDetailsPage.goToCart();
-      await expect(page).toHaveURL("https://www.saucedemo.com/cart.html");
+      await expect(page).toHaveURL(`${baseURL}cart.html`);
       await expect(page.locator(".inventory_item_name")).toHaveText(
         "Sauce Labs Backpack"
       );
