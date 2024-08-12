@@ -19,7 +19,6 @@ test.beforeEach(async ({ page }) => {
 
 /* Test Script */
 test.describe("UI Tests", () => {
-  
   /* Login Validation test */
   test("Valid Login", async ({ page }) => {
     const loginPage = new LoginPage(page);
