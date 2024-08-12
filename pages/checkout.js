@@ -20,4 +20,4 @@ export class CheckoutPage {
     const continueBtn = await this.continueBtn();
     await continueBtn.click();
   }
-}
+} 

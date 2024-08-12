@@ -11,3 +11,4 @@ export class CartPage {
     await checkoutBtn.click();
   }
 }
+  

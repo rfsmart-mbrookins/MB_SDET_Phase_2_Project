@@ -38,3 +38,4 @@ export class LoginPage {
     await expect(this.loginErrorMsg()).toBeVisible();
   }
 }
+ 

@@ -44,3 +44,4 @@ export class InventoryPage {
     await itemDetails.click();
   }
 }
+ 

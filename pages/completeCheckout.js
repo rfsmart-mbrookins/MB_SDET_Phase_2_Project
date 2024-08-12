@@ -10,4 +10,4 @@ export class CompleteCheckoutPage {
     const finishBtn = await this.finishBtn();
     await finishBtn.click();
   }
-}
+} 

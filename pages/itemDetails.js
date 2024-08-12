@@ -33,3 +33,4 @@ export class ItemDetailsPage {
     await goToCartBtn.click();
   }
 }
+ 
