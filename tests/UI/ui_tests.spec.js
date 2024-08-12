@@ -8,7 +8,7 @@ import { ItemDetailsPage } from "../../pages/itemDetails";
 
 const baseURL = "https://www.saucedemo.com/";
 
-/* Go to login page before each hook */
+/* Go to login page using beforeEach hook */
 test.beforeEach(async ({ page }) => {
   const loginPage = new LoginPage(page);
   await test.step("Go to Login Page", async () => {
@@ -71,6 +71,7 @@ test.describe("UI Tests", () => {
   });
 
   /* E2E - Workflow - Successful Purchase Workflow */
+  /* Login, Add Items to Cart, Go to Cart, Go to Checkout, Fill Out Form, Complete Checkout */
   test("Workflow", async ({ page }) => {
     const loginPage = new LoginPage(page);
     const inventoryPage = new InventoryPage(page);
@@ -110,8 +111,8 @@ test.describe("UI Tests", () => {
       await checkoutPage.continueToNextPage();
       await expect(page).toHaveURL(`${baseURL}checkout-step-two.html`);
     });
-    //Finish checkout
-    await test.step("Finish checkout", async () => {
+    //Complete checkout
+    await test.step("Complete checkout", async () => {
       await completeCheckoutPage.finishCheckout();
       await expect(page).toHaveURL(`${baseURL}checkout-complete.html`);
       await expect(page.locator(".complete-header")).toHaveText(
