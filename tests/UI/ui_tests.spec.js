@@ -159,7 +159,6 @@ test.describe("UI Tests", () => {
     const loginPage = new LoginPage(page);
     const inventoryPage = new InventoryPage(page);
     const itemDetailsPage = new ItemDetailsPage(page);
-
     await test.step("Valid Login", async () => {
       await loginPage.inputValidLoginCredentials();
       await loginPage.submitLoginCredentials();
@@ -178,13 +177,12 @@ test.describe("UI Tests", () => {
   });
 
   /*Additional Test 3*/
-  //Add item to Cart
-  test("Add to Cart", async ({ page }) => {
+  //Add item to Cart from item details page
+  test("Add to Cart from Item Details", async ({ page }) => {
     const loginPage = new LoginPage(page);
     const inventoryPage = new InventoryPage(page);
     const itemDetailsPage = new ItemDetailsPage(page);
     const cartPage = new CartPage(page);
-
     await test.step("Valid Login", async () => {
       await loginPage.inputValidLoginCredentials();
       await loginPage.submitLoginCredentials();
@@ -209,4 +207,3 @@ test.describe("UI Tests", () => {
     });
   });
 });
- 
