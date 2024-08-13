@@ -88,7 +88,7 @@ test.describe("UI Tests", () => {
       await loginPage.submitLoginCredentials();
       // await expect(page).toHaveURL(`${baseURL}inventory.html`);
     });
-    await test.step ("Validate inventory URL", async () =>{
+    await test.step("Validate inventory URL", async () => {
       await inventoryPage.validateInventoryURL();
     });
     //Add items to cart
@@ -100,15 +100,15 @@ test.describe("UI Tests", () => {
       await inventoryPage.addItemToCart(4);
       await inventoryPage.addItemToCart(5);
     });
-       await test.step ("Validate inventory URL", async () =>{
+    await test.step("Validate inventory URL", async () => {
       await inventoryPage.validateInventoryURL();
-    })
+    });
     // Go to cart
     await test.step("Go to Cart", async () => {
       await inventoryPage.goToShoppingCart();
       // await expect(page).toHaveURL(`${baseURL}cart.html`);
     });
-    await test.step ("Validate Cart URL", async () =>{
+    await test.step("Validate Cart URL", async () => {
       await cartPage.validateCartURL();
     });
     //Checkout
@@ -116,7 +116,7 @@ test.describe("UI Tests", () => {
       await cartPage.goToCheckout();
       // await expect(page).toHaveURL(`${baseURL}checkout-step-one.html`);
     });
-    await test.step ("Validate Checkout URL", async () =>{
+    await test.step("Validate Checkout URL", async () => {
       await checkoutPage.validateCheckoutURL();
     });
     //Fill form information
@@ -127,7 +127,7 @@ test.describe("UI Tests", () => {
       await checkoutPage.continueToNextPage();
       // await expect(page).toHaveURL(`${baseURL}checkout-step-two.html`);
     });
-    await test.step ("Validate Complete Checkout URL", async () =>{
+    await test.step("Validate Complete Checkout URL", async () => {
       await completeCheckoutPage.validateCompleteCheckoutURL();
     });
     //Complete checkout
