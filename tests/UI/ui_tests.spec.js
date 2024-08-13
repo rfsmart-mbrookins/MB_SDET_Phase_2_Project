@@ -5,7 +5,7 @@ import { CartPage } from "../../pages/cart";
 import { CheckoutPage } from "../../pages/checkout";
 import { CompleteCheckoutPage } from "../../pages/completeCheckout";
 import { ItemDetailsPage } from "../../pages/itemDetails";
-import { CheckoutConfirmation } from "../../pages/checkoutConfirmation";
+import { CheckoutConfirmationPage } from "../../pages/checkoutConfirmation";
 
 const baseURL = "https://www.saucedemo.com/";
 
@@ -81,7 +81,7 @@ test.describe("UI Tests", () => {
     const cartPage = new CartPage(page);
     const checkoutPage = new CheckoutPage(page);
     const completeCheckoutPage = new CompleteCheckoutPage(page);
-    const checkoutConfirmation = new CheckoutConfirmation(page);
+    const checkoutConfirmationPage = new CheckoutConfirmationPage(page);
     //Login
     await test.step("Submit Valid Login Credentials", async () => {
       await loginPage.inputValidLoginCredentials();
@@ -121,8 +121,8 @@ test.describe("UI Tests", () => {
     });
     //Checkout Confirmation
     await test.step("Checkout Confirmation", async () => {
-      await checkoutConfirmation.validateCheckoutCompleteURL();
-      await checkoutConfirmation.validateCompleteHeader();
+      await checkoutConfirmationPage.validateCheckoutCompleteURL();
+      await checkoutConfirmationPage.validateCompleteHeader();
     });
   });
 
