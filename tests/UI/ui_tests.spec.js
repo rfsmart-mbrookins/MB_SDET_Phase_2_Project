@@ -5,6 +5,7 @@ import { CartPage } from "../../pages/cart";
 import { CheckoutPage } from "../../pages/checkout";
 import { CompleteCheckoutPage } from "../../pages/completeCheckout";
 import { ItemDetailsPage } from "../../pages/itemDetails";
+import { CheckoutConfirmation } from "../../pages/checkoutConfirmation";
 
 const baseURL = "https://www.saucedemo.com/";
 
@@ -19,7 +20,7 @@ test.beforeEach(async ({ page }) => {
 
 /* Test Script */
 test.describe("UI Tests", () => {
-  /* Login Validation test */
+  /* Login Validation test - Successful Login Test */
   test("Valid Login", async ({ page }) => {
     const loginPage = new LoginPage(page);
     await test.step("Valid Login", async () => {
@@ -39,12 +40,14 @@ test.describe("UI Tests", () => {
       await loginPage.inputValidLoginCredentials();
       await loginPage.submitLoginCredentials();
     });
+    //Add First Item to Cart
     const firstBtn = await inventoryPage.addToCartBtn().first();
     await test.step("Add to Cart", async () => {
       await expect(firstBtn).toHaveText("Add to cart");
       await inventoryPage.addItemToCart(0);
       await expect(firstBtn).toHaveText("Remove");
     });
+    //Remove Item from Cart
     await test.step("Remove from Cart", async () => {
       await expect(firstBtn).toHaveText("Remove");
       await inventoryPage.removeItemFromCart(0);
@@ -54,14 +57,15 @@ test.describe("UI Tests", () => {
 
   /* Negative Test */
   // Invalid Login
-  test("Invalid Login", async ({ page }) => {
+  test("Validate Invalid Login Error", async ({ page }) => {
     const loginPage = new LoginPage(page);
-    await test.step("Invalid Login", async () => {
+    await test.step("Submit Invalid Login Credentials", async () => {
       await loginPage.inputInvalidLoginCredentials();
       await loginPage.submitLoginCredentials();
       await expect(page).toHaveURL(baseURL);
     });
-    await test.step("Validate Error Message Returned", async () => {
+    //Validate Error Message
+    await test.step("Validate Invalid Login Error", async () => {
       const errorMsg = await loginPage.loginErrorMsg();
       await expect(errorMsg).toHaveText(
         "Epic sadface: Username and password do not match any user in this service"
@@ -71,14 +75,15 @@ test.describe("UI Tests", () => {
 
   /* E2E - Workflow - Successful Purchase Workflow */
   /* Login, Add Items to Cart, Go to Cart, Go to Checkout, Fill Out Form, Complete Checkout */
-  test("Workflow", async ({ page }) => {
+  test("Workflow - E2E Complete Item Checkout", async ({ page }) => {
     const loginPage = new LoginPage(page);
     const inventoryPage = new InventoryPage(page);
     const cartPage = new CartPage(page);
     const checkoutPage = new CheckoutPage(page);
     const completeCheckoutPage = new CompleteCheckoutPage(page);
+    const checkoutConfirmation = new CheckoutConfirmation(page);
     //Login
-    await test.step("Valid Login", async () => {
+    await test.step("Submit Valid Login Credentials", async () => {
       await loginPage.inputValidLoginCredentials();
       await loginPage.submitLoginCredentials();
       await expect(page).toHaveURL(`${baseURL}inventory.html`);
@@ -103,7 +108,7 @@ test.describe("UI Tests", () => {
       await expect(page).toHaveURL(`${baseURL}checkout-step-one.html`);
     });
     //Fill form information
-    await test.step("Fill form", async () => {
+    await test.step("Fill Purchase Checkout Form", async () => {
       await checkoutPage.fillForm();
     });
     await test.step("Continue to next page", async () => {
@@ -111,19 +116,20 @@ test.describe("UI Tests", () => {
       await expect(page).toHaveURL(`${baseURL}checkout-step-two.html`);
     });
     //Complete checkout
-    await test.step("Complete checkout", async () => {
+    await test.step("Complete Successful Purchase Checkout", async () => {
       await completeCheckoutPage.finishCheckout();
-      await expect(page).toHaveURL(`${baseURL}checkout-complete.html`);
-      await expect(page.locator(".complete-header")).toHaveText(
-        "Thank you for your order!"
-      );
+    });
+    //Checkout Confirmation
+    await test.step("Checkout Confirmation", async () => {
+      await checkoutConfirmation.validateCheckoutCompleteURL();
+      await checkoutConfirmation.validateCompleteHeader();
     });
   });
 
   /* 3 additional tests */
   /* Additional Test 1 */
   // Item Sorting Options
-  test("Item Sorting", async ({ page }) => {
+  test("Validate Item Sorting Toggle", async ({ page }) => {
     const loginPage = new LoginPage(page);
     const inventoryPage = new InventoryPage(page);
     await test.step("Valid Login", async () => {
