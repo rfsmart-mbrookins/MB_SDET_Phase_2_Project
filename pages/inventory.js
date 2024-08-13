@@ -45,5 +45,14 @@ export class InventoryPage {
     const itemDetails = await this.itemDetails().nth(index);
     await itemDetails.click();
   }
+
+    // URL validation
+    async validateInventoryURL() {
+      const baseURL = "https://www.saucedemo.com";
+      const extension = "/inventory.html";
+      const currentURL = await this.page.url();
+      await expect(currentURL).toBe(`${baseURL}${extension}`);
+    }
+
 }
  

@@ -86,7 +86,10 @@ test.describe("UI Tests", () => {
     await test.step("Submit Valid Login Credentials", async () => {
       await loginPage.inputValidLoginCredentials();
       await loginPage.submitLoginCredentials();
-      await expect(page).toHaveURL(`${baseURL}inventory.html`);
+      // await expect(page).toHaveURL(`${baseURL}inventory.html`);
+    });
+    await test.step ("Validate inventory URL", async () =>{
+      await inventoryPage.validateInventoryURL();
     });
     //Add items to cart
     await test.step("Add multiple items to Cart", async () => {
@@ -97,15 +100,24 @@ test.describe("UI Tests", () => {
       await inventoryPage.addItemToCart(4);
       await inventoryPage.addItemToCart(5);
     });
+       await test.step ("Validate inventory URL", async () =>{
+      await inventoryPage.validateInventoryURL();
+    })
     // Go to cart
     await test.step("Go to Cart", async () => {
       await inventoryPage.goToShoppingCart();
-      await expect(page).toHaveURL(`${baseURL}cart.html`);
+      // await expect(page).toHaveURL(`${baseURL}cart.html`);
+    });
+    await test.step ("Validate Cart URL", async () =>{
+      await cartPage.validateCartURL();
     });
     //Checkout
     await test.step("Checkout", async () => {
       await cartPage.goToCheckout();
-      await expect(page).toHaveURL(`${baseURL}checkout-step-one.html`);
+      // await expect(page).toHaveURL(`${baseURL}checkout-step-one.html`);
+    });
+    await test.step ("Validate Checkout URL", async () =>{
+      await checkoutPage.validateCheckoutURL();
     });
     //Fill form information
     await test.step("Fill Purchase Checkout Form", async () => {
@@ -113,7 +125,10 @@ test.describe("UI Tests", () => {
     });
     await test.step("Continue to next page", async () => {
       await checkoutPage.continueToNextPage();
-      await expect(page).toHaveURL(`${baseURL}checkout-step-two.html`);
+      // await expect(page).toHaveURL(`${baseURL}checkout-step-two.html`);
+    });
+    await test.step ("Validate Complete Checkout URL", async () =>{
+      await completeCheckoutPage.validateCompleteCheckoutURL();
     });
     //Complete checkout
     await test.step("Complete Successful Purchase Checkout", async () => {

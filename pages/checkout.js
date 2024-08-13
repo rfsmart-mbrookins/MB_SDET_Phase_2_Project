@@ -22,4 +22,11 @@ export class CheckoutPage {
     const continueBtn = await this.continueBtn();
     await continueBtn.click();
   }
+   // URL validation
+   async validateCheckoutURL() {
+    const baseURL = "https://www.saucedemo.com";
+    const extension = "/checkout-step-one.html";
+    const currentURL = await this.page.url();
+    await expect(currentURL).toBe(`${baseURL}${extension}`);
+  }
 } 
