@@ -34,15 +34,20 @@ export class LoginPage {
   }
 
   //Validate error message returned
-  async assertInvalidLoginErrorMsg() {
+  async validateInvalidLoginErrorMsg() {
     await expect(this.loginErrorMsg()).toBeVisible();
+    await expect(this.loginErrorMsg()).toHaveText("Epic sadface: Username and password do not match any user in this service"
+    );
   }
 
+  //Login page URL validation
   async validateLoginPageURL() {
     const baseURL = "https://www.saucedemo.com";
     const extension = "/";
     const currentURL = await this.page.url();
     await expect(currentURL).toBe(`${baseURL}${extension}`);
   }
+
+
 
 }

@@ -6,6 +6,7 @@ import { CheckoutPage } from "../../pages/checkout";
 import { CompleteCheckoutPage } from "../../pages/completeCheckout";
 import { ItemDetailsPage } from "../../pages/itemDetails";
 import { CheckoutConfirmationPage } from "../../pages/checkoutConfirmation";
+import { it } from "node:test";
 
 const baseURL = "https://www.saucedemo.com/";
 
@@ -24,11 +25,16 @@ test.describe("UI Tests", () => {
   /* Login Validation test - Successful Login Test */
   test("Valid Login", async ({ page }) => {
     const loginPage = new LoginPage(page);
+    const inventoryPage = new InventoryPage(page);
     await test.step("Valid Login", async () => {
       await loginPage.validateLoginPageURL();
       await loginPage.inputValidLoginCredentials();
       await loginPage.submitLoginCredentials();
-      await expect(page).toHaveURL(`${baseURL}inventory.html`);
+      // await expect(page).toHaveURL(`${baseURL}inventory.html`);
+    });
+    //Validate inventory URL after successful login
+    await test.step("Validate inventory URL", async () => {
+      await inventoryPage.validateInventoryURL();
     });
   });
 
@@ -42,6 +48,10 @@ test.describe("UI Tests", () => {
       await loginPage.validateLoginPageURL();
       await loginPage.inputValidLoginCredentials();
       await loginPage.submitLoginCredentials();
+    });
+    //Validate inventory URL after successful login
+    await test.step("Validate inventory URL", async () => {
+      await inventoryPage.validateInventoryURL();
     });
     //Add First Item to Cart
     const firstBtn = await inventoryPage.addToCartBtn().first();
@@ -71,10 +81,17 @@ test.describe("UI Tests", () => {
     //Validate Error Message
     await test.step("Validate Invalid Login Error", async () => {
       const errorMsg = await loginPage.loginErrorMsg();
-      await expect(errorMsg).toHaveText(
-        "Epic sadface: Username and password do not match any user in this service"
-      );
+      await loginPage.validateLoginPageURL();
+      await loginPage.validateInvalidLoginErrorMsg();
     });
+      // await expect(errorMsg).toHaveText(
+      //   "Epic sadface: Username and password do not match any user in this service"
+      // );
+    // });
+    //Validate login URL when login is unsuccessful
+    // await test.step("Validate login URL", async () => {
+    //   await loginPage.validateLoginPageURL();
+    // });
   });
 
   /* E2E - Workflow - Successful Purchase Workflow */
@@ -156,7 +173,8 @@ test.describe("UI Tests", () => {
       await loginPage.validateLoginPageURL();
       await loginPage.inputValidLoginCredentials();
       await loginPage.submitLoginCredentials();
-      await expect(page).toHaveURL(`${baseURL}inventory.html`);
+      await inventoryPage.validateInventoryURL();
+      // await expect(page).toHaveURL(`${baseURL}inventory.html`);
     });
     await test.step("Sort Low to High", async () => {
       await inventoryPage.itemSort("lohi");
@@ -190,6 +208,7 @@ test.describe("UI Tests", () => {
       await loginPage.validateLoginPageURL();
       await loginPage.inputValidLoginCredentials();
       await loginPage.submitLoginCredentials();
+      await inventoryPage.validateInventoryURL();
     });
     await test.step("View Item Details", async () => {
       await inventoryPage.getItemDetails();
@@ -215,17 +234,20 @@ test.describe("UI Tests", () => {
       await loginPage.validateLoginPageURL();
       await loginPage.inputValidLoginCredentials();
       await loginPage.submitLoginCredentials();
+      await inventoryPage.validateInventoryURL();
     });
     await test.step("View Item Details", async () => {
       await inventoryPage.getItemDetails();
-      await expect(page).toHaveURL(`${baseURL}inventory-item.html?id=4`);
+      await itemDetailsPage.validateItemDetailsURL();
+      // await expect(page).toHaveURL(`${baseURL}inventory-item.html?id=4`);
     });
     await test.step("Add item to Cart", async () => {
       await itemDetailsPage.addItemToCart();
     });
     await test.step("Go to Cart", async () => {
       await itemDetailsPage.goToCart();
-      await expect(page).toHaveURL(`${baseURL}cart.html`);
+      await cartPage.validateCartURL();
+      // await expect(page).toHaveURL(`${baseURL}cart.html`);
       await expect(page.locator(".inventory_item_name")).toHaveText(
         "Sauce Labs Backpack"
       );
