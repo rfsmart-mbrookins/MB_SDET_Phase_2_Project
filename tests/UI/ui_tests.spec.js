@@ -23,7 +23,7 @@ test.beforeEach(async ({ page }) => {
 /* Test Script */
 test.describe("UI Tests", () => {
   /* Login Validation test - Successful Login Test */
-  test("Valid Login", async ({ page }) => {
+  test("Valid Successful Login", async ({ page }) => {
     const loginPage = new LoginPage(page);
     const inventoryPage = new InventoryPage(page);
     await test.step("Valid Login", async () => {

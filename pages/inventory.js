@@ -34,6 +34,7 @@ export class InventoryPage {
     const itemSortOpt = await this.itemSortOpt();
     await itemSortOpt.selectOption(value);
   }
+  
   //Get sort option
   async getSortOption() {
     const itemSortOpt = await this.itemSortOpt();
