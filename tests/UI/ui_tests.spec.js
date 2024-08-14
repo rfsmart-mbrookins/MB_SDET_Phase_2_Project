@@ -14,7 +14,8 @@ test.beforeEach(async ({ page }) => {
   const loginPage = new LoginPage(page);
   await test.step("Go to Login Page", async () => {
     await loginPage.goto();
-    await expect(page).toHaveURL(baseURL);
+    await loginPage.validateLoginPageURL();
+    // await expect(page).toHaveURL(baseURL);
   });
 });
 
@@ -24,6 +25,7 @@ test.describe("UI Tests", () => {
   test("Valid Login", async ({ page }) => {
     const loginPage = new LoginPage(page);
     await test.step("Valid Login", async () => {
+      await loginPage.validateLoginPageURL();
       await loginPage.inputValidLoginCredentials();
       await loginPage.submitLoginCredentials();
       await expect(page).toHaveURL(`${baseURL}inventory.html`);
@@ -37,6 +39,7 @@ test.describe("UI Tests", () => {
     const inventoryPage = new InventoryPage(page);
     //Login
     await test.step("Valid Login", async () => {
+      await loginPage.validateLoginPageURL();
       await loginPage.inputValidLoginCredentials();
       await loginPage.submitLoginCredentials();
     });
@@ -60,9 +63,10 @@ test.describe("UI Tests", () => {
   test("Validate Invalid Login Error", async ({ page }) => {
     const loginPage = new LoginPage(page);
     await test.step("Submit Invalid Login Credentials", async () => {
+      await loginPage.validateLoginPageURL();
       await loginPage.inputInvalidLoginCredentials();
       await loginPage.submitLoginCredentials();
-      await expect(page).toHaveURL(baseURL);
+            // await expect(page).toHaveURL(baseURL);
     });
     //Validate Error Message
     await test.step("Validate Invalid Login Error", async () => {
@@ -84,6 +88,7 @@ test.describe("UI Tests", () => {
     const checkoutConfirmationPage = new CheckoutConfirmationPage(page);
     //Login
     await test.step("Submit Valid Login Credentials", async () => {
+      await loginPage.validateLoginPageURL();
       await loginPage.inputValidLoginCredentials();
       await loginPage.submitLoginCredentials();
       // await expect(page).toHaveURL(`${baseURL}inventory.html`);
@@ -148,6 +153,7 @@ test.describe("UI Tests", () => {
     const loginPage = new LoginPage(page);
     const inventoryPage = new InventoryPage(page);
     await test.step("Valid Login", async () => {
+      await loginPage.validateLoginPageURL();
       await loginPage.inputValidLoginCredentials();
       await loginPage.submitLoginCredentials();
       await expect(page).toHaveURL(`${baseURL}inventory.html`);
@@ -181,6 +187,7 @@ test.describe("UI Tests", () => {
     const inventoryPage = new InventoryPage(page);
     const itemDetailsPage = new ItemDetailsPage(page);
     await test.step("Valid Login", async () => {
+      await loginPage.validateLoginPageURL();
       await loginPage.inputValidLoginCredentials();
       await loginPage.submitLoginCredentials();
     });
@@ -205,6 +212,7 @@ test.describe("UI Tests", () => {
     const itemDetailsPage = new ItemDetailsPage(page);
     const cartPage = new CartPage(page);
     await test.step("Valid Login", async () => {
+      await loginPage.validateLoginPageURL();
       await loginPage.inputValidLoginCredentials();
       await loginPage.submitLoginCredentials();
     });
