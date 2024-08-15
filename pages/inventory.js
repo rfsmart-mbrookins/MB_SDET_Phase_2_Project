@@ -10,6 +10,8 @@ export class InventoryPage {
   goToShoppingCartBtn = () => this.page.locator(".shopping_cart_link");
   itemSortOpt = () => this.page.locator(".product_sort_container");
   itemDetails = () => this.page.locator(".inventory_item_name");
+  hamburgerBtn = () => this.page.locator("#react-burger-menu-btn");
+  logoutBtn = () => this.page.locator("#logout_sidebar_link");
 
   //Add to cart buttons
   async addItemToCart(index = 0) {
@@ -34,7 +36,7 @@ export class InventoryPage {
     const itemSortOpt = await this.itemSortOpt();
     await itemSortOpt.selectOption(value);
   }
-  
+
   //Get sort option
   async getSortOption() {
     const itemSortOpt = await this.itemSortOpt();
@@ -47,13 +49,23 @@ export class InventoryPage {
     await itemDetails.click();
   }
 
-    // URL validation
-    async validateInventoryURL() {
-      const baseURL = "https://www.saucedemo.com";
-      const extension = "/inventory.html";
-      const currentURL = await this.page.url();
-      await expect(currentURL).toBe(`${baseURL}${extension}`);
-    }
+  // URL validation
+  async validateInventoryURL() {
+    const baseURL = "https://www.saucedemo.com";
+    const extension = "/inventory.html";
+    const currentURL = await this.page.url();
+    await expect(currentURL).toBe(`${baseURL}${extension}`);
+  }
 
+  // Hamburger button validation
+  async validateHamburgerBtn() {
+    const hamburgerBtn = await this.hamburgerBtn();
+    await hamburgerBtn.click();
+  }
+
+  // Logout link validation
+  async validateLogout() {
+    const logoutBtn = await this.logoutBtn();
+    await logoutBtn.click();
+  }
 }
- 

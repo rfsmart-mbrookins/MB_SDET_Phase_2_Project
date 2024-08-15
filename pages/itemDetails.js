@@ -40,9 +40,8 @@ export class ItemDetailsPage {
   async validateItemDetailsURL() {
     const baseURL = "https://www.saucedemo.com";
     const extension = "/inventory-item.html";
-    const id = "?id=4"
+    const id = "?id=4";
     const currentURL = await this.page.url();
     await expect(currentURL).toBe(`${baseURL}${extension}${id}`);
   }
-  
 }

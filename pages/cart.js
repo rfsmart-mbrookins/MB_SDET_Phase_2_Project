@@ -6,7 +6,7 @@ export class CartPage {
   }
 
   checkoutBtn = () => this.page.locator("#checkout");
-  
+
   //Checkout button
   async goToCheckout() {
     const checkoutBtn = await this.checkoutBtn();

@@ -9,7 +9,7 @@ export class CheckoutPage {
   lastNameInput = () => this.page.locator("#last-name");
   postalCodeInput = () => this.page.locator("#postal-code");
   continueBtn = () => this.page.locator("#continue");
-  
+
   //Enter customer information
   async fillForm() {
     await this.firstNameInput().fill("Testy");

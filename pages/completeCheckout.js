@@ -12,7 +12,7 @@ export class CompleteCheckoutPage {
     const finishBtn = await this.finishBtn();
     await finishBtn.click();
   }
-  
+
   // URL validation
   async validateCompleteCheckoutURL() {
     const baseURL = "https://www.saucedemo.com";

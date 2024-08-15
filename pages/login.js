@@ -36,7 +36,8 @@ export class LoginPage {
   //Validate error message returned
   async validateInvalidLoginErrorMsg() {
     await expect(this.loginErrorMsg()).toBeVisible();
-    await expect(this.loginErrorMsg()).toHaveText("Epic sadface: Username and password do not match any user in this service"
+    await expect(this.loginErrorMsg()).toHaveText(
+      "Epic sadface: Username and password do not match any user in this service"
     );
   }
 
@@ -47,7 +48,4 @@ export class LoginPage {
     const currentURL = await this.page.url();
     await expect(currentURL).toBe(`${baseURL}${extension}`);
   }
-
-
-
 }
