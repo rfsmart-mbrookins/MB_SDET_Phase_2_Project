@@ -6,7 +6,6 @@ import { CheckoutPage } from "../../pages/checkout";
 import { CompleteCheckoutPage } from "../../pages/completeCheckout";
 import { ItemDetailsPage } from "../../pages/itemDetails";
 import { CheckoutConfirmationPage } from "../../pages/checkoutConfirmation";
-import { it } from "node:test";
 
 const baseURL = "https://www.saucedemo.com/";
 
@@ -179,7 +178,6 @@ test.describe("UI Tests", () => {
       await loginPage.inputValidLoginCredentials();
       await loginPage.submitLoginCredentials();
       await inventoryPage.validateInventoryURL();
-      // await expect(page).toHaveURL(`${baseURL}inventory.html`);
     });
     await test.step("Sort Low to High", async () => {
       await inventoryPage.itemSort("lohi");
@@ -244,7 +242,6 @@ test.describe("UI Tests", () => {
     await test.step("View Item Details", async () => {
       await inventoryPage.getItemDetails();
       await itemDetailsPage.validateItemDetailsURL();
-      // await expect(page).toHaveURL(`${baseURL}inventory-item.html?id=4`);
     });
     await test.step("Add item to Cart", async () => {
       await itemDetailsPage.addItemToCart();
@@ -252,7 +249,6 @@ test.describe("UI Tests", () => {
     await test.step("Go to Cart", async () => {
       await itemDetailsPage.goToCart();
       await cartPage.validateCartURL();
-      // await expect(page).toHaveURL(`${baseURL}cart.html`);
       await expect(page.locator(".inventory_item_name")).toHaveText(
         "Sauce Labs Backpack"
       );
