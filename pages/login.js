@@ -1,5 +1,4 @@
 import { expect } from "@playwright/test";
-// import exp from "constants";
 
 export class LoginPage {
   constructor(page) {
